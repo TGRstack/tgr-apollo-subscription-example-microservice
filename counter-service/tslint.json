@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "@tgrx/tslint-config-tgr"
+  ],
+  "rules": {
+    "no-implicit-dependencies": [
+      // config
+      true, "dev",
+      // src subdirectories
+      ["config", "clients", "collections", "gql", "modules", "middleware", "service", "types", "utils"]
+    ],
+    "no-submodule-imports": [
+      // config
+      true,
+      // src subdirectories
+      "config", "clients", "collections", "gql", "modules", "middleware", "service", "types", "utils",
+      // imports
+      "colors"
+    ]
+  }
+}

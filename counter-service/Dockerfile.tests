@@ -1,0 +1,16 @@
+# RUN TESTS
+FROM node:11.9.0-alpine as base
+RUN npm install -g nps nps-utils
+WORKDIR /usr/src/
+
+ENV NODE_OPTIONS=--max_old_space_size=4096
+
+COPY . .
+
+## Install app dependencies
+RUN npm i -D
+
+# RUN TESTS
+RUN nps test
+
+CMD ["bash"]

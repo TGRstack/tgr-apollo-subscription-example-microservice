@@ -1,0 +1,46 @@
+image: docker:stable
+
+before_script:
+  # - docker info
+  - echo $ARTIFACTORY_DOCKER_REPOSITORY/$DOCKER_IMAGE:$CI_JOB_ID
+
+# PIPELINE
+stages:
+  - build
+  - upload
+
+test-image:
+  stage: build
+  script:
+    - docker build --rm  -f Dockerfile.tests -t $ARTIFACTORY_DOCKER_REPOSITORY/$DOCKER_IMAGE:$CI_JOB_ID-tests .
+
+    # Check created docker image
+    - DOCKER_ID=$(docker run -d -p 8081:80 $ARTIFACTORY_DOCKER_REPOSITORY/$DOCKER_IMAGE:$CI_JOB_ID-tests); sleep 10;
+    - docker ps; #sleep 1;
+    - docker stop $DOCKER_ID
+    - docker rm $DOCKER_ID
+
+
+build-image:
+  stage: build
+  script:
+    # Build docker image
+    - docker build --rm -f Dockerfile.prod -t $ARTIFACTORY_DOCKER_REPOSITORY/$DOCKER_IMAGE:$CI_JOB_ID .
+
+upload:
+  stage: upload
+  script:
+    - docker build --rm -f Dockerfile.artifactory -t $ARTIFACTORY_DOCKER_REPOSITORY/$DOCKER_IMAGE:$CI_JOB_ID-upload .
+
+    - docker run -a $ARTIFACTORY_DOCKER_REPOSITORY/$DOCKER_IMAGE:$CI_JOB_ID-upload
+      -v /var/run/docker.sock:/var/run/docker.sock \
+      -e "DOCKER_IMAGE_NAME=$DOCKER_IMAGE_NAME" \
+      -e "DOCKER_IMAGE_PATH=$ARTIFACTORY_DOCKER_REPOSITORY/$DOCKER_IMAGE:$CI_JOB_ID" \
+      -e "ARTIFACTORY_URL=$ARTIFACTORY_URL" \
+      -e "ARTIFACTORY_USER=$ARTIFACTORY_USER" \
+      -e "ARTIFACTORY_PASS=$ARTIFACTORY_PASS" \
+      -e "ARTIFACTORY_DOCKER_REPOSITORY=$ARTIFACTORY_DOCKER_REPOSITORY" \
+      -e "CI_JOB_ID=$CI_JOB_ID"
+
+  # only:
+  #   - master

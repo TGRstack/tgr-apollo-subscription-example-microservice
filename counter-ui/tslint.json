@@ -1,0 +1,36 @@
+// remember to update tsconfig and webpack/config.js
+{
+  "extends": [
+    "@tgrx/tslint-config-tgr"
+  ],
+  "rules": {
+    "no-implicit-dependencies": [
+      // config
+      true, "dev",
+      // src subdirectories - refer to paths list in tsconfig.json
+      [
+        "!server","!app", "!modules", "!config",
+        "_config",  "_assets", "_components", "_helpers", "_gql", "_middleware", "_modules", "_root", "_routes", "_types", "_utils"
+      ]
+    ],
+    "no-submodule-imports": [
+      // config
+      true,
+      // src subdirectories - refer to paths list in tsconfig.json
+      "!server","!app", "!modules", "!config",
+      "_config",  "_assets", "_components", "_helpers", "_gql", "_middleware", "_modules", "_root", "_routes", "_types", "_utils",
+
+      // MUI
+      "@material-ui/styles/",
+      "@material-ui/core/",
+      "@material-ui/icons/"
+    ]
+  },
+  "linterOptions": {
+    "exclude": [
+      // GENERATED FILES
+      "**/*.css.d.ts",
+      "**/*.scss.d.ts"
+    ]
+  }
+}

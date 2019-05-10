@@ -1,0 +1,7 @@
+{
+  "ignore": [
+    ".reference/*",
+    "logs/*",
+    "scripts/*"
+  ]
+}

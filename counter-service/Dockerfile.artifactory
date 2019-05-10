@@ -1,0 +1,59 @@
+FROM ubuntu:latest
+ENV HOME /root
+WORKDIR /root
+
+ARG CI_JOB_ID
+
+ARG DOCKER_IMAGE_NAME
+ENV DOCKER_IMAGE_NAME=$DOCKER_IMAGE_NAME
+
+ARG DOCKER_IMAGE_PATH
+ENV DOCKER_IMAGE_PATH=$DOCKER_IMAGE_PATH
+
+ARG ARTIFACTORY_URL
+ENV ARTIFACTORY_URL=$ARTIFACTORY_URL
+
+ARG ARTIFACTORY_USER
+ENV ARTIFACTORY_USER=$ARTIFACTORY_USER
+
+ARG ARTIFACTORY_PASS
+ENV ARTIFACTORY_PASS=$ARTIFACTORY_PASS
+
+ARG ARTIFACTORY_DOCKER_REPOSITORY
+ENV ARTIFACTORY_DOCKER_REPOSITORY=$ARTIFACTORY_DOCKER_REPOSITORY
+
+
+# INSTALL COMMON
+RUN \
+  apt-get update && \
+  apt-get upgrade -y  && \
+  apt-get install -y build-essential && \
+  apt-get install -y software-properties-common && \
+  apt-get install -y \
+    byobu curl git htop man unzip vim wget \
+    apt-transport-https \
+    ca-certificates \
+    gnupg-agent
+
+
+
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+RUN add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) \
+      stable"
+
+RUN \
+  apt-get update
+
+# INSTALL DOCKER
+RUN apt-get install -y  docker-ce docker-ce-cli containerd.io
+
+# downloads jfrog
+RUN curl -fL https://getcli.jfrog.io | sh
+
+COPY SetupCI.artifactory.sh .
+RUN chmod +x SetupCI.artifactory.sh
+
+CMD ["./SetupCI.artifactory.sh"]

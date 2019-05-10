@@ -1,0 +1,36 @@
+import { pickOneKeyValue } from '../random'
+
+describe('pickOneKeyValue(arr)', () => {
+  test('works', () => {
+    const data = {a: 'foo', b: 'bar', c: 'star'}
+
+    const test01 = pickOneKeyValue(data)
+    const test02 = pickOneKeyValue(data)
+    const test03 = pickOneKeyValue(data)
+    const test04 = pickOneKeyValue(data)
+    const test05 = pickOneKeyValue(data)
+    const test06 = pickOneKeyValue(data)
+    const test07 = pickOneKeyValue(data)
+    const test08 = pickOneKeyValue(data)
+    const test09 = pickOneKeyValue(data)
+    const test10 = pickOneKeyValue(data)
+    const test11 = pickOneKeyValue(data)
+    const test12 = pickOneKeyValue(data)
+    const test13 = pickOneKeyValue(data)
+    const test14 = pickOneKeyValue(data)
+    expect(Object.values(data).filter(d => d === test01).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test02).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test03).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test04).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test05).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test06).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test07).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test08).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test09).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test10).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test11).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test12).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test13).length > 0).toEqual(true)
+    expect(Object.values(data).filter(d => d === test14).length > 0).toEqual(true)
+  })
+})

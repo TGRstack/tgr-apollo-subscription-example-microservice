@@ -1,0 +1,17 @@
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+
+const commonServer = require('./webpack.common.server');
+
+const DevServerConfig = merge(commonServer, {
+  devtool: 'inline-source-map',
+  mode: 'development',
+  node: {
+    net: true,
+  },
+  plugins: [
+    new webpack.NamedModulesPlugin(),
+  ]
+})
+
+module.exports = DevServerConfig
