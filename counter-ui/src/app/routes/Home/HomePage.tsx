@@ -19,7 +19,9 @@ const Counter = () => (
       console.log({loading, data})
       return loading
         ? <h1>Loading ...</h1>
-        : <h2>Counter: {data.count}</h2>
+        : data.count
+          ? <h2>Counter: {data.count}</h2>
+          : <h1>Counter Subscription Not Available</h1>
     }}
   </Subscription>
 )
@@ -42,7 +44,7 @@ const CounterButton = () => (
 )
 
 export default function HomePage(props: IProps): JSX.Element {
-  return  <div>
+  return  <div style={{padding: '20px'}}>
     <Counter />
     <CounterButton />
   </div>
