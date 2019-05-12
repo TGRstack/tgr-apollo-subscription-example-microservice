@@ -1,4 +1,3 @@
-import * as colors from 'config/console_colors'
 import * as express from 'express'
 import * as fs from 'fs'
 import * as http from 'http'
@@ -6,35 +5,7 @@ import * as https from 'https'
 import Logger from 'modules/logger'
 import ApolloServer from './apollo/apollo'
 
-import { getAllHubs } from 'gql/hubs/hubQueries'
-
-// tslint:disable-next-line no-any
-const SUCCESS_MESSAGE = (config: any) => {
-  const {
-    SERVICE_INFO,
-    GRAPHQL_REST: REST,
-    GRAPHQL_EXPLORE: EXPLORE,
-    GRAPHQL_WS: WS,
-    HOST_PATH,
-    HOST_WS_PATH,
-  } = config
-  // EVERYTHING BOOTED SUCCESFULLY
-  const SE = (t = '') => t.toUpperCase().substr(0, 4)
-  const onlineTitle = `${SE(process.env.NODE_PLATFORM)} Online (${SE(process.env.NODE_ENV)})`
-
-  const removeDoubleSlashes = (str: string) => str.split('//').join('/')
-  const combo = (a: string, b: string) => [removeDoubleSlashes(a), removeDoubleSlashes(b)].join('')
-
-  return colors.msg(`\n\n
-  🌐    ${onlineTitle}    🌐
-  -------------------------------------------------------
-  📡    endpoint    ${combo(HOST_PATH, REST)}
-  🎮    explorer    ${combo(HOST_PATH, EXPLORE)}
-  ➿    websocket   ${combo(HOST_WS_PATH, WS)}
-  🕵🏻   info        ${combo(HOST_PATH, `${SERVICE_INFO}/info`)}
-  🕵🏻   metrics     ${combo(HOST_PATH, `${SERVICE_INFO}/metrics`)}
-  -------------------------------------------------------`)
-}
+import { SUCCESS_MESSAGE } from './helpers'
 
 export default class Express {
   app: express.Express
@@ -111,10 +82,6 @@ export default class Express {
 
       // tslint:disable-next-line no-console
       Logger.info(this.successMessage)
-
-      // # WARMUP IR DEMO
-      // Logger.info({message: 'WARMING UP InMemory CACHE'})
-      // getAllHubs()
     })
     return listener
   }

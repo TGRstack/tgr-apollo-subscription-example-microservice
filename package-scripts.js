@@ -1,4 +1,4 @@
-const { concurrent } = require('nps-utils')
+const { concurrent, series } = require('nps-utils')
 
 module.exports = {
   scripts: {
@@ -13,16 +13,28 @@ module.exports = {
         color: 'green.bold',
       },
     }),
-    setup:  concurrent({
+    setup:  {
+      default: concurrent({
+        FE: {
+          script: 'nps setup.FE',
+          color: 'blue.bold',
+        },
+        BE: {
+          script: 'nps setup.BE',
+          color: 'green.bold',
+        },
+      }),
       FE: {
-        script: 'cd counter-ui && npm i -D',
-        color: 'blue.bold',
+        default: series.nps('setup.FE.npm', 'setup.FE.env'),
+        npm:'cd counter-ui && npm i -D',
+        env: 'cd counter-ui && cp .env.example .env.development',
       },
       BE: {
-        script: 'cd counter-service && npm i -D',
-        color: 'green.bold',
+        default: series.nps('setup.BE.npm', 'setup.BE.env'),
+        npm:'cd counter-service && npm i -D',
+        env: 'cd counter-service && cp .env.example .env.development',
       },
-    }),
+    },
     test: 'echo "Error: no test specified" && exit 1',
   }
 };

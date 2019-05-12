@@ -15,7 +15,7 @@
     "**/.nvmrc": true,
     "**/jest.config.js": true,
     "**/nodemon.json": true,
-    "**/package-scripts.js": true,
+    // "**/package-scripts.js": true,
     "**/package-lock.json": true,
     "**/tsconfig.jest.json": true,
     "**/tsconfig.json": true,

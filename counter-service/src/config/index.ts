@@ -7,6 +7,7 @@ const {
   GRAPHQL_REST,
   GRAPHQL_WS,
   HOST_NAME,
+  ENDPOINT_API,
   ENDPOINT_OPS,
   PORT,
   SSL_ENABLED,
@@ -36,6 +37,7 @@ export default {
   GRAPHQL_REST,
   GRAPHQL_WS,
 
+  ENDPOINT_API,
   ENDPOINT_OPS,
 
   HOST_PATH,
