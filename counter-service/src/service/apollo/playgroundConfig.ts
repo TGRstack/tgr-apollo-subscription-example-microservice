@@ -2,12 +2,12 @@ import config from 'config'
 
 const playgroundConfig = () => {
   // https://www.apollographql.com/docs/apollo-server/features/graphql-playground.html#Configuring-Playground
-  const defaultQuery = `
-subscription counterStream {
-  count
-}
-mutation increaseCounter {
+  const defaultQuery = `mutation increaseCounter {
   countIncr
+}
+
+subscription onCountIncr {
+  count
 }
 `
   return {
@@ -20,7 +20,7 @@ mutation increaseCounter {
         {
           endpoint: config.GRAPHQL_EXPLORE || '/graphql',
           query: defaultQuery,
-          subscriptionEndpoint: config.GRAPHQL_WS || '/subscriptions',
+          subscriptionEndpoint: config.GRAPHQL_WS || '/graphql',
         },
       ],
     }

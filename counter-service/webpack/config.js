@@ -1,7 +1,7 @@
 // ## opts for helpers
 const {
   PORT = 3000,
-  HOST_NAME = 'localhost',
+  HOST_NAME = '0.0.0.0',
   NODE_ENV = 'dev',
   SSL: SSL_ENABLED,
 } = process.env

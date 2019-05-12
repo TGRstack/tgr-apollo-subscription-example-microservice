@@ -12,7 +12,7 @@ export default function Middlwares({ children }: {
     <Apollo
       graphqlURL={GQL_ENDPOINT}
       // FIXME: use .env variable instead of hardcode!
-      graphqlWS={'ws://0.0.0.0:3001/subscriptions'}
+      graphqlWS={'ws://0.0.0.0:3001/graphql'}
     >
       <>
         {children}

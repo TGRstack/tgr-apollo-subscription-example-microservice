@@ -4,8 +4,8 @@ import { webaddress } from '!server/modules/utils/string'
 
 const {
   GQL_ENDPOINT = '0.0.0.0:3001/graphql',
-  GQL_WS_ENDPOINT = '0.0.0.0:3001/subscriptions',
-  HOST_NAME = 'localhost',
+  GQL_WS_ENDPOINT = '0.0.0.0:3001/graphql',
+  HOST_NAME = '0.0.0.0',
   NODE_ENV = 'dev',
   NODE_PLATFORM = 'server',
   SSL: SSL_ENABLED,
