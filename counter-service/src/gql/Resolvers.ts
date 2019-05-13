@@ -1,4 +1,3 @@
-// import Mutations from './Mutations'
 import Mutations, { MutationDefaults } from './Mutations'
 import Queries from './Queries'
 import Subscriptions from './Subscriptions'
