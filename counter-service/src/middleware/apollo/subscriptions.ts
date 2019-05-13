@@ -6,11 +6,9 @@ import { Server } from 'http'
 import logger from 'modules/logger'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 
-const services = {
-  execute,
-  // schema: Schema,
-  schema: makeExecutableSchema({typeDefs: Schema}),
-  subscribe,
+const schema = makeExecutableSchema({typeDefs: Schema})
+
+const onStateChange = {
   onConnect: (connectionParams, webSocket, context) => {
     logger.info('SOCK | HELLO')
   },
@@ -26,11 +24,21 @@ const services = {
   },
 }
 
-const config = (server: Server) => ({
+const gqlFunctions = {
+  execute,
+  subscribe,
+}
+
+const options = {
+  schema,
+  ...onStateChange
+}
+
+const socketOptions = (server: Server) => ({
   path: GRAPHQL_WS,
   server,
 })
 
-export default function subscriptions(server: Server) {
-  return new SubscriptionServer(services, config(server))
+export default function subscriptions(server: Server): SubscriptionServer {
+  return new SubscriptionServer({...gqlFunctions, ...options}, socketOptions(server))
 }
