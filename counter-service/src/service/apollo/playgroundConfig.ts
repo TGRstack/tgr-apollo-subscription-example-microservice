@@ -2,7 +2,14 @@ import config from 'config'
 
 const playgroundConfig = () => {
   // https://www.apollographql.com/docs/apollo-server/features/graphql-playground.html#Configuring-Playground
-  const defaultQuery = `mutation increaseCounter {
+  const defaultQuery = `query hiQry {hello}
+mutation hiMut {hello}
+
+query getCounter{
+  count
+}
+
+mutation increaseCounter {
   countIncr
 }
 

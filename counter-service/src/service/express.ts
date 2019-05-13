@@ -31,22 +31,6 @@ export default class Express {
     this.setup()
   }
 
-  setup() {
-    const {app, config, middleware, } = this
-
-    this.serverConfig = this.setupConfig()
-
-    // Express
-    middleware.expressInfo(app)
-    middleware.expressSecurity(app)
-    middleware.expressLogger(app)
-
-    // Apollo
-    ApolloServer.applyMiddleware({
-      app,
-      path: config.GRAPHQL_REST,
-    })
-  }
   setupConfig() {
     const {app, config: {SSL, SSL_KEY, SSL_CRT}} = this
 
@@ -65,6 +49,23 @@ export default class Express {
       || Array.isArray(el)
       || Object.keys(el).length > 0
     )
+  }
+
+  setup() {
+    const {app, config, middleware, } = this
+
+    this.serverConfig = this.setupConfig()
+
+    // Express
+    middleware.expressInfo(app)
+    middleware.expressSecurity(app)
+    middleware.expressLogger(app)
+
+    // Apollo
+    ApolloServer.applyMiddleware({
+      app,
+      path: config.GRAPHQL_REST,
+    })
   }
 
   start() {

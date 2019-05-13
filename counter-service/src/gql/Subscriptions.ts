@@ -1,8 +1,7 @@
-import { Subscriptions as CountSubs } from './counter'
-
-// import hubs from './hubs'
-
 // Provide resolver functions for your schema fields
+
+import CountSubs from './counter/Subscriptions'
+
 const Subscriptions = {
   ...CountSubs,
 }

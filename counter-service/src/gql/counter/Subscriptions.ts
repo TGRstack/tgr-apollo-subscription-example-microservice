@@ -1,6 +1,4 @@
-import { pubsub } from 'service/apollo'
-
-// import Channel from './Channel'
+import pubsub from 'service/apollo/pubsub'
 
 const count = {
   resolve: data => {
@@ -8,7 +6,6 @@ const count = {
     return data
   },
   subscribe: () => pubsub.asyncIterator(['countIncr'])
-  // subscribe: () => pubsub.asyncIterator([Channel])
 }
 
 const CounterSubscriptions = {

@@ -1,9 +1,9 @@
-export class Counter {
+class Counter {
   public value = 0
-  increment = () => this.value += 1
+  increment() {return this.value += 1}
 }
 const Controller = new Counter()
 
-// console.log({Controller})
+// console.log("Counter Created> ", Controller)
 
 export default Controller

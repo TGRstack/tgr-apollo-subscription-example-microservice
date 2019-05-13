@@ -1,9 +1,3 @@
-// import * as express from 'express'
-// import * as actuator from 'express-actuator'
-// import { SERVICE_INFO } from '../../config/'
-
-// export default function logger(app: express.Application) {
-
 import { GRAPHQL_WS } from 'config/environment'
 import { Schema } from 'gql/index'
 import { execute, subscribe } from 'graphql'
@@ -14,28 +8,22 @@ import { SubscriptionServer } from 'subscriptions-transport-ws'
 
 const services = {
   execute,
+  // schema: Schema,
   schema: makeExecutableSchema({typeDefs: Schema}),
   subscribe,
   onConnect: (connectionParams, webSocket, context) => {
-    logger.info('HELLO')
+    logger.info('SOCK | HELLO')
   },
   onDisconnect: (webSocket, context) => {
-    logger.info('GOODBYE')
+    logger.info('SOCK | GOODBYE')
   },
-  // onOperation: (message, params, webSocket) => {
-  //   // Manipulate and return the params, e.g.
-  //   params.context.randomId = uuid.v4();
-
-  //   // Or specify a schema override
-  //   if (shouldOverrideSchema()) {
-  //     params.schema = newSchema;
-  //   }
-
-  //   return params;
-  // },
-  // onOperationComplete: webSocket => {
-  //   // ...
-  // },
+  onOperation: (message, params, webSocket) => {
+    logger.info('SOCK | PROCESS START')
+    return params
+  },
+  onOperationComplete: webSocket => {
+    logger.info('SOCK | PROCESS DONE')
+  },
 }
 
 const config = (server: Server) => ({

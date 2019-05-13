@@ -1,5 +1,1 @@
-import countIncr from './mutations/countIncr'
-
-export default {
-  countIncr
-}
+export {default as countIncr} from './mutations/countIncr'
