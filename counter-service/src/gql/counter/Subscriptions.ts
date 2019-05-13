@@ -1,5 +1,4 @@
-const { PubSub } = require('apollo-server')
-const pubsub = new PubSub()
+import { pubsub } from 'service/apollo'
 
 // import Channel from './Channel'
 

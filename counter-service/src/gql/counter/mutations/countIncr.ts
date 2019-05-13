@@ -1,6 +1,5 @@
 // tslint:disable no-any
-const { PubSub } = require('apollo-server')
-const pubsub = new PubSub()
+import { pubsub } from 'service/apollo'
 
 // import Channel from '../Channel'
 import { Counter as CounterMaker } from '../Counter'

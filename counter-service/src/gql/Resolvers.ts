@@ -8,7 +8,7 @@ export const Resolvers = {
   Query: Queries,
   Subscription: Subscriptions,
 }
-// export default Resolvers
+export default Resolvers
 
 export const ResolverDefaults = {
   ...MutationDefaults,

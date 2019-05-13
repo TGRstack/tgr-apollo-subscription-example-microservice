@@ -2,4 +2,4 @@
 // TODO: replace playground w/ graphiql
 
 export {default} from './apollo'
-// export {default as pubsub} from './pubsub'
+export {default as pubsub} from './pubsub'

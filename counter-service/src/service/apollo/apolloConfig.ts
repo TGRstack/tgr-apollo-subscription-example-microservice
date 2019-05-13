@@ -1,5 +1,5 @@
 import { Schema } from 'gql/index'
-import { Resolvers } from 'gql/Resolvers'
+import Resolvers from 'gql/Resolvers'
 import loggingConfig from './loggingConfig'
 import playgroundConfig from './playgroundConfig'
 import resolveFunctions from './resolveFunctions'

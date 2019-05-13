@@ -2,8 +2,7 @@ export {
   default as Mutations
 } from './Mutations'
 export {
-  // default as Resolvers,
-  Resolvers,
+  default as Resolvers,
   ResolverDefaults,
 } from './Resolvers'
 export {default as Schema} from './Schema'
