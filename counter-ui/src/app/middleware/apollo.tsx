@@ -1,10 +1,11 @@
 // import { RestLink } from '@tgrx/apollo-link-rest'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloClient } from 'apollo-client'
-import { ApolloLink } from 'apollo-link'
+import { ApolloLink, split } from 'apollo-link'
 import { onError } from 'apollo-link-error'
 import { HttpLink } from 'apollo-link-http'
 import { WebSocketLink } from 'apollo-link-ws'
+import { getMainDefinition } from 'apollo-utilities'
 import * as React from 'react'
 import { ApolloProvider } from 'react-apollo'
 
@@ -33,6 +34,16 @@ export default class ApolloClientProvider extends React.Component<IProps> {
     },
     uri: this.props.graphqlWS,
   })
+  private _terminatingLink = split(
+    ({ query }) => {
+      const { kind, operation } = getMainDefinition(query)
+      return (
+        kind === 'OperationDefinition' && operation === 'subscription'
+      )
+    },
+    this._wsLink,
+    this._httpLink,
+  )
 
   // Create error handler link
   // https://github.com/apollographql/apollo-client/blob/master/docs/source/features/error-handling.md
@@ -54,8 +65,9 @@ export default class ApolloClientProvider extends React.Component<IProps> {
     const links = [
       // this._restLink(),
       this._errorLink,
-      this._httpLink,
-      this._wsLink,
+      this._terminatingLink,
+      // this._httpLink,
+      // this._wsLink,
     ]
 
     this._apolloClient = new ApolloClient({

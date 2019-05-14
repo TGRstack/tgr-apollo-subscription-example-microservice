@@ -13,7 +13,6 @@ subscription onCountIncr {
 const Counter = () => (
   <Subscription
     subscription={COUNTER_SUBSCRIPTION}
-    // variables={{ repoFullName }}
   >
     {({ data, loading }) => {
       console.log({loading, data})
