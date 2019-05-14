@@ -5,7 +5,7 @@ import Counter from './Counter'
 
 async function countIncr(root, args, context) {
   const count = Counter.increment()
-  await pubsub.publish('countIncr', count)
+  await pubsub.publish('countIncr', {count})
   console.log('countIncr', '>>>', { count })
   return count
 }

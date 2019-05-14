@@ -78,8 +78,10 @@ export default class Express {
 
     // Create a http/ws listener for our express app.
     const ws: http.Server = server.createServer(...serverConfig)
+    ApolloServer.installSubscriptionHandlers(ws)
+
     const listener = ws.listen({port: config.PORT}, () => {
-      middleware.apolloSubscriptions(ws)
+      // middleware.apolloSubscriptions(ws)
 
       // tslint:disable-next-line no-console
       Logger.info(this.successMessage)
